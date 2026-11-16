@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zekâ mı, Gerçek mi? | İEU Turizm • TTI İzmir 2027</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ieu: {
+                            navy: '#091E3A',
+                            navyLight: '#133159',
+                            orange: '#FF6A00',
+                            orangeHover: '#E55F00',
+                            bg: '#F4F7FB'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #F4F7FB;
+            color: #091E3A;
+            overflow-x: hidden;
+        }
+
+        .topo-kiosk-bg {
+            background-color: #F4F7FB;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='%23091E3A' stroke-opacity='0.045' stroke-width='1.2'%3E%3Cpath d='M-40 75 C 70 15, 160 145, 275 80 C 355 30, 415 110, 480 70'/%3E%3Cpath d='M-40 155 C 80 90, 175 215, 295 145 C 375 95, 425 180, 480 140'/%3E%3Cpath d='M-40 235 C 90 170, 165 295, 285 225 C 365 175, 430 255, 480 215'/%3E%3Cpath d='M-40 315 C 75 250, 190 365, 305 295 C 385 250, 425 330, 480 290'/%3E%3Cpath d='M-40 395 C 100 330, 185 435, 300 375 C 380 335, 435 405, 480 370'/%3E%3Cellipse cx='320' cy='120' rx='62' ry='30' transform='rotate(-14 320 120)'/%3E%3Cellipse cx='320' cy='120' rx='34' ry='16' transform='rotate(-14 320 120)'/%3E%3Cellipse cx='125' cy='310' rx='72' ry='35' transform='rotate(12 125 310)'/%3E%3Cellipse cx='125' cy='310' rx='38' ry='18' transform='rotate(12 125 310)'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .exhibition-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(9, 30, 58, 0.09);
+            box-shadow: 0 14px 34px -8px rgba(9, 30, 58, 0.08), 0 4px 12px -2px rgba(9, 30, 58, 0.04);
+        }
+
+        .quiz-option-card {
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .quiz-option-card-interactive:hover {
+            transform: translateY(-4px);
+            border-color: #FF6A00;
+            box-shadow: 0 22px 42px -10px rgba(255, 106, 0, 0.24), 0 8px 18px -4px rgba(9, 30, 58, 0.09);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E8EEF6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #091E3A;
+            border-radius: 9999px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #rewardCouponCard, #rewardCouponCard * {
+                visibility: visible;
+            }
+            #rewardCouponCard {
+                position: fixed;
+                left: 50%;
+                top: 18%;
+                transform: translateX(-50%);
+                width: 440px;
+                border: 2px dashed #091E3A !important;
+                background: #FFFFFF !important;
+            }
+        }
+    </style>
+</head>
+<body class="topo-kiosk-bg min-h-screen flex flex-col justify-between selection:bg-ieu-orange selection:text-white">
+
+    <!-- ==================== HEADER BAR ==================== -->
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-ieu-navy/10 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+            <div id="ieuLogoTrigger" onclick="handleBrandTripleTap()" class="flex items-center gap-3.5 cursor-pointer select-none group" title="İzmir Ekonomi Üniversitesi">
+                <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-ieu-navy flex items-center justify-center shadow-md group-hover:bg-ieu-navyLight transition shrink-0">
+                    <svg viewBox="0 0 100 100" class="w-9 h-9" aria-hidden="true">
+                        <polygon points="50,7 93,50 50,93 7,50" fill="none" stroke="#FF6A00" stroke-width="6.5"/>
+                        <circle cx="50" cy="31" r="7.5" fill="#FFFFFF"/>
+                        <rect x="43" y="44" width="14" height="28" rx="3" fill="#FF6A00"/>
+                        <path d="M25 58 Q50 81 75 58" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-xs sm:text-sm font-extrabold tracking-tight text-ieu-navy uppercase">
+                            İZMİR EKONOMİ ÜNİVERSİTESİ <span class="text-ieu-orange mx-0.5">•</span> Meslek Yüksekokulu <span class="text-ieu-orange mx-0.5">•</span> Turizm ve Otel İşletmeciliği
+                        </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-ieu-orange text-white tracking-wider uppercase shadow-sm">
+                            TTI İZMİR 2027
+                        </span>
+                    </div>
+                    <p class="text-[11px] sm:text-xs font-semibold text-slate-500">
+                        Yapay Zekâ mı, Gerçek mi? İnteraktif Fuar Deneyim Kiosku
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 shrink-0">
+                <button type="button" onclick="openLeaderboardModal()" class="px-3.5 py-2.5 rounded-xl bg-ieu-bg hover:bg-ieu-navy hover:text-white border border-ieu-navy/15 text-ieu-navy text-xs sm:text-sm font-extrabold transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-trophy text-ieu-orange"></i>
+                    <span class="hidden sm:inline">Liderlik Tablosu</span>
+                    <span class="sm:hidden">Sıralama</span>
+                </button>
+                <button type="button" onclick="toggleAudioMute()" aria-label="Sesi Aç veya Kapat" class="w-10 h-10 rounded-xl bg-ieu-bg hover:bg-ieu-navy hover:text-white border border-ieu-navy/15 text-ieu-navy transition flex items-center justify-center shadow-sm">
+                    <i id="audioStatusIcon" class="fa-solid fa-volume-high text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN VIEWPORT ==================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-center">
+
+        <!-- 1. WELCOME SCREEN -->
+        <section id="welcomeScreen" class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-ieu-orange/30 shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-ieu-orange"></span>
+                    <span class="text-xs font-extrabold tracking-wide text-ieu-navy uppercase">
+                        TTI İzmir 2027 • Görsel Algı & Turizm Yarışması
+                    </span>
+                </div>
+
+                <div class="space-y-2.5">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-ieu-navy leading-[1.08]">
+                        Yapay Zekâ mı, <br>
+                        <span class="text-ieu-orange">Gerçek mi?</span>
+                    </h1>
+                    <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                        Dünyaca ünlü destinasyonların iki karesi yan yana! Biri gerçek seyahat fotoğrafı, diğeri ise doğa veya mimari kurallarını gizlice değiştiren <strong class="text-ieu-navy">Yapay Zekâ (AI)</strong> üretimi. Bakalım kaç tanesini doğru yakalayabileceksin?
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto lg:mx-0 text-left">
+                    <div class="bg-white/90 border border-ieu-navy/10 rounded-2xl p-3.5 shadow-sm">
+                        <div class="w-7 h-7 rounded-lg bg-ieu-navy text-white text-xs font-extrabold flex items-center justify-center mb-2">1</div>
+                        <p class="text-xs font-extrabold text-ieu-navy">İki Kareyi İncele</p>
+                        <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Işık, yansıma ve detaylara dikkatlice bak.</p>
+                    </div>
+                    <div class="bg-white/90 border border-ieu-navy/10 rounded-2xl p-3.5 shadow-sm">
+                        <div class="w-7 h-7 rounded-lg bg-ieu-orange text-white text-xs font-extrabold flex items-center justify-center mb-2">2</div>
+                        <p class="text-xs font-extrabold text-ieu-navy">Doğru Kartı Seç</p>
+                        <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Hedef görsele tıkla ve gizli ipucunu keşfet.</p>
+                    </div>
+                    <div class="bg-white/90 border border-ieu-navy/10 rounded-2xl p-3.5 shadow-sm">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white text-xs font-extrabold flex items-center justify-center mb-2">3</div>
+                        <p class="text-xs font-extrabold text-ieu-navy">Ödül Kuponunu Al</p>
+                        <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Turu tamamla, İEU standı hediye kuponunu indir.</p>
+                    </div>
+                </div>
+
+                <div class="exhibition-card rounded-3xl p-5 sm:p-6 max-w-xl mx-auto lg:mx-0 space-y-4">
+                    <div class="space-y-1.5 text-left">
+                        <label for="playerNicknameInput" class="text-xs font-extrabold text-ieu-navy uppercase tracking-wider flex items-center justify-between">
+                            <span>Yarışmacı Adı / Takma Ad</span>
+                            <span class="text-[11px] font-medium text-slate-400">Boş bırakılırsa: Misafir Gezgin</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-compass absolute left-4 top-1/2 -translate-y-1/2 text-ieu-orange text-base"></i>
+                            <input type="text" id="playerNicknameInput" maxlength="26" placeholder="Adınız veya Takma Adınız..."
+                                class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-ieu-bg border border-ieu-navy/15 text-ieu-navy placeholder-slate-400 text-sm font-bold focus:outline-none focus:border-ieu-orange focus:bg-white focus:ring-4 focus:ring-ieu-orange/15 transition">
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="startQuizSession()" class="w-full py-4 px-6 rounded-2xl bg-ieu-orange hover:bg-ieu-orangeHover text-white font-extrabold text-base sm:text-lg tracking-wide shadow-lg shadow-ieu-orange/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-play"></i>
+                        <span>OYUNA BAŞLA</span>
+                    </button>
+
+                    <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span id="deckReadyDot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                            <span id="deckReadyText" class="font-bold text-slate-600">20 Destinasyon Havuzu Hazır</span>
+                        </div>
+                        <span id="roundSummaryPill" class="font-extrabold text-ieu-navy bg-ieu-bg px-3 py-1 rounded-lg">
+                            10 Soruluk Tur • Saf Dikkat
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div class="exhibition-card rounded-3xl p-5 sm:p-6 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3.5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-ieu-orange/15 text-ieu-orange flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-ranking-star"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-sm font-extrabold text-ieu-navy uppercase tracking-wide">TTI İzmir 2027 Liderleri</h2>
+                                <p class="text-[11px] font-medium text-slate-500">En Çok Doğru & En Hızlı Süre</p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="openLeaderboardModal()" class="text-xs font-extrabold text-ieu-orange hover:underline">
+                            Tüm Liste
+                        </button>
+                    </div>
+
+                    <div id="homeLeaderboardList" class="space-y-2.5 min-h-[225px] flex flex-col justify-center">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <div class="rounded-2xl bg-ieu-navy text-white p-4 flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-ieu-orange flex items-center justify-center text-lg shrink-0">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <p class="text-xs text-slate-200 leading-snug">
+                            Yarışmayı tamamla, en yüksek <strong class="text-white">Doğru Sayısına</strong> ulaş ve adını TTI İzmir 2027 liderler tablosuna yazdır!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. QUIZ GAMEPLAY SCREEN -->
+        <section id="quizScreen" class="hidden w-full max-w-6xl mx-auto space-y-5">
+            <div class="exhibition-card rounded-2xl p-4 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <span id="hudProgressPill" class="px-4 py-2 rounded-xl bg-ieu-navy text-white text-xs sm:text-sm font-extrabold tracking-wider uppercase">
+                            Soru 1 / 10
+                        </span>
+                        <div class="px-3.5 py-2 rounded-xl bg-ieu-bg border border-ieu-navy/10 text-xs sm:text-sm font-extrabold text-ieu-navy flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-ieu-orange"></i>
+                            <span id="hudDestinationTitle">Salar de Uyuni • Bolivya</span>
+                            <span id="hudCategoryTag" class="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-white border border-ieu-navy/10 text-[10px] font-bold text-slate-500 uppercase">
+                                Doğa Harikası
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2.5">
+                        <div class="px-3.5 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
+                            <span id="hudCorrectBadge" class="text-xs sm:text-sm font-extrabold text-emerald-800">Doğru: 0</span>
+                        </div>
+                        <div class="px-3.5 py-1.5 rounded-xl bg-ieu-bg border border-ieu-navy/10 flex items-center gap-2">
+                            <i class="fa-regular fa-clock text-ieu-orange text-sm"></i>
+                            <span id="hudStopwatchBadge" class="text-xs sm:text-sm font-extrabold text-ieu-navy font-mono">Süre: 00:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full h-2 rounded-full bg-ieu-bg overflow-hidden">
+                    <div id="hudProgressFill" class="h-full bg-ieu-orange rounded-full transition-all duration-300" style="width: 10%;"></div>
+                </div>
+
+                <div class="pt-1 flex flex-col sm:flex-row items-center justify-between gap-2">
+                    <h2 id="quizPromptBanner" class="text-lg sm:text-2xl font-extrabold text-ieu-navy tracking-tight flex items-center gap-2.5">
+                        <span>🤖 HANGİSİ <span class="text-ieu-orange underline decoration-ieu-orange/40 underline-offset-4">YAPAY ZEKÂ (AI)</span> ÜRETİMİ?</span>
+                    </h2>
+                    <div id="hudStepDots" class="flex items-center gap-1.5"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                <!-- LEFT CARD [0] -->
+                <div id="optionCard0" class="exhibition-card quiz-option-card quiz-option-card-interactive rounded-3xl overflow-hidden flex flex-col justify-between border-2 border-transparent">
+                    <div class="relative aspect-[4/3] w-full bg-slate-900 overflow-hidden group cursor-pointer" onclick="evaluatePlayerSelection(0)">
+                        <img id="optionImg0" src="" alt="Sol Karşılaştırma Görseli" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+                        <div id="optionBadge0" class="absolute top-3.5 left-3.5 px-3.5 py-1.5 rounded-xl bg-ieu-navy/90 backdrop-blur-md text-white text-xs font-extrabold tracking-wider uppercase shadow-md">
+                            A SEÇENEĞİ (SOL)
+                        </div>
+                        <button type="button" onclick="event.stopPropagation(); openLightbox('optionImg0')" title="Tam Ekran İncele" class="absolute top-3.5 right-3.5 w-10 h-10 rounded-xl bg-white/95 hover:bg-ieu-orange text-ieu-navy hover:text-white flex items-center justify-center transition shadow-md">
+                            <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <button type="button" id="optionBtn0" onclick="evaluatePlayerSelection(0)" class="w-full py-3.5 px-4 rounded-2xl bg-ieu-bg hover:bg-ieu-orange text-ieu-navy hover:text-white border border-ieu-navy/15 hover:border-ieu-orange font-extrabold text-sm tracking-wide transition flex items-center justify-center gap-2.5">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>BU YAPAY ZEKÂ (AI)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RIGHT CARD [1] -->
+                <div id="optionCard1" class="exhibition-card quiz-option-card quiz-option-card-interactive rounded-3xl overflow-hidden flex flex-col justify-between border-2 border-transparent">
+                    <div class="relative aspect-[4/3] w-full bg-slate-900 overflow-hidden group cursor-pointer" onclick="evaluatePlayerSelection(1)">
+                        <img id="optionImg1" src="" alt="Sağ Karşılaştırma Görseli" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+                        <div id="optionBadge1" class="absolute top-3.5 left-3.5 px-3.5 py-1.5 rounded-xl bg-ieu-navy/90 backdrop-blur-md text-white text-xs font-extrabold tracking-wider uppercase shadow-md">
+                            B SEÇENEĞİ (SAĞ)
+                        </div>
+                        <button type="button" onclick="event.stopPropagation(); openLightbox('optionImg1')" title="Tam Ekran İncele" class="absolute top-3.5 right-3.5 w-10 h-10 rounded-xl bg-white/95 hover:bg-ieu-orange text-ieu-navy hover:text-white flex items-center justify-center transition shadow-md">
+                            <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <button type="button" id="optionBtn1" onclick="evaluatePlayerSelection(1)" class="w-full py-3.5 px-4 rounded-2xl bg-ieu-bg hover:bg-ieu-orange text-ieu-navy hover:text-white border border-ieu-navy/15 hover:border-ieu-orange font-extrabold text-sm tracking-wide transition flex items-center justify-center gap-2.5">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>BU YAPAY ZEKÂ (AI)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="roundRevealPanel" class="hidden exhibition-card rounded-3xl p-5 sm:p-6 border-2 space-y-4">
+                <div id="roundVerdictBox" class="rounded-2xl p-4 flex items-center gap-3.5"></div>
+                <div class="rounded-2xl bg-ieu-bg border border-ieu-navy/10 p-4 flex items-start gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-ieu-orange text-white flex items-center justify-center text-base shrink-0 mt-0.5 shadow-sm">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-xs font-extrabold text-ieu-orange uppercase tracking-wider">
+                            Yapay Zekâ Şaşırtmacası (Twist) & İpucu
+                        </p>
+                        <p id="roundTwistExplanation" class="text-xs sm:text-sm text-ieu-navy font-semibold leading-relaxed"></p>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" id="nextQuestionBtn" onclick="goToNextQuestion()" class="w-full sm:w-auto py-3.5 px-8 rounded-2xl bg-ieu-navy hover:bg-ieu-navyLight text-white font-extrabold text-sm tracking-wide shadow-md transition flex items-center justify-center gap-2.5">
+                        <span>Sonraki Destinasyon →</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. RESULTS & DIGITAL COUPON SCREEN -->
+        <section id="resultsScreen" class="hidden w-full max-w-xl mx-auto">
+            <div class="exhibition-card rounded-3xl p-6 sm:p-8 text-center space-y-6">
+                <div class="space-y-2">
+                    <div id="resultRankIcon" class="w-20 h-20 mx-auto rounded-3xl bg-ieu-navy text-ieu-orange text-4xl flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <p class="text-xs font-extrabold text-ieu-orange uppercase tracking-widest pt-2">KAZANILAN ÜNVAN</p>
+                    <h2 id="resultRankTitle" class="text-2xl sm:text-3xl font-extrabold text-ieu-navy">Turizm & AI Ustası</h2>
+                    <p id="resultRankDesc" class="text-xs sm:text-sm text-slate-600 font-medium"></p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 bg-ieu-bg border border-ieu-navy/10 rounded-2xl p-4">
+                    <div class="border-r border-ieu-navy/10">
+                        <p class="text-[10px] font-extrabold text-slate-500 uppercase">DOĞRU SAYISI</p>
+                        <p id="resultCorrectText" class="text-lg sm:text-2xl font-extrabold text-ieu-orange mt-0.5">8 / 10 Doğru</p>
+                    </div>
+                    <div class="border-r border-ieu-navy/10">
+                        <p class="text-[10px] font-extrabold text-slate-500 uppercase">SÜRE</p>
+                        <p id="resultDurationText" class="text-lg sm:text-2xl font-extrabold text-ieu-navy font-mono mt-0.5">00:38</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-extrabold text-slate-500 uppercase">BAŞARI</p>
+                        <p id="resultAccuracyText" class="text-lg sm:text-2xl font-extrabold text-emerald-600 mt-0.5">%80</p>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl bg-ieu-navy text-white p-5 space-y-2">
+                    <div class="flex items-center justify-center gap-2 font-extrabold text-xs uppercase tracking-wider text-ieu-orange">
+                        <i class="fa-solid fa-award text-base"></i>
+                        <span>İzmir Ekonomi Üniversitesi TTI İzmir 2027</span>
+                    </div>
+                    <p class="text-xs text-slate-200">
+                        Yarışmayı başarıyla tamamladınız! Skorunuz liderlik tablosuna kaydedilmiştir.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    <button type="button" onclick="startQuizSession()" class="py-3.5 px-5 rounded-2xl bg-ieu-orange hover:bg-ieu-orangeHover text-white font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Yeniden Oyna</span>
+                    </button>
+                    <button type="button" onclick="returnToWelcome()" class="py-3.5 px-5 rounded-2xl bg-ieu-bg hover:bg-ieu-navy text-ieu-navy hover:text-white border border-ieu-navy/15 font-extrabold text-sm transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Ana Ekrana Dön</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full border-t border-ieu-navy/10 bg-white/80 py-3 px-4 text-center text-[11px] font-medium text-slate-500 relative">
+        <p>© 2027 İzmir Ekonomi Üniversitesi • Meslek Yüksekokulu — Turizm ve Otel İşletmeciliği | TTI İzmir</p>
+        <button type="button" onclick="openSecretAdminModal()" title="Organizatör Görsel Yönetimi (Ctrl+Shift+U)" aria-label="Organizatör Paneli"
+            class="fixed bottom-2.5 right-2.5 w-7 h-7 flex items-center justify-center text-ieu-navy/25 hover:text-ieu-orange transition z-30">
+            <i class="fa-solid fa-gear text-xs"></i>
+        </button>
+    </footer>
+
+    <!-- ==================== SECRET ADMIN PANEL MODAL ==================== -->
+    <div id="secretAdminModal" class="hidden fixed inset-0 z-50 bg-ieu-navy/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-6xl max-h-[94vh] flex flex-col overflow-hidden shadow-2xl border border-ieu-navy/20">
+            
+            <div class="px-5 py-4 bg-ieu-navy text-white flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-ieu-orange text-white flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-extrabold flex items-center gap-2">
+                            <span>Organizatör Görsel Yönetimi (Ayrı Yükleme Sistemi)</span>
+                            <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] font-bold text-ieu-orange uppercase">
+                                IndexedDB Kalıcı Hafıza
+                            </span>
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Gerçek ve AI fotoğrafları aşağıdaki <strong>iki ayrı kutudan</strong> topluca veya tablodaki satırlardan <strong>tek tek</strong> yükleyebilirsiniz.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="flex items-center bg-white/10 rounded-xl p-1 text-[11px] font-extrabold">
+                        <button type="button" id="modeFindAiBtn" onclick="setQuizQuestionMode(true)" class="px-2.5 py-1.5 rounded-lg bg-ieu-orange text-white transition">
+                            🤖 AI Olanı Bul
+                        </button>
+                        <button type="button" id="modeFindRealBtn" onclick="setQuizQuestionMode(false)" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">
+                            📷 Gerçek Olanı Bul
+                        </button>
+                    </div>
+
+                    <div class="flex items-center bg-white/10 rounded-xl p-1 text-[11px] font-extrabold">
+                        <button type="button" id="roundLen10Btn" onclick="setQuizRoundLength(10)" class="px-2.5 py-1.5 rounded-lg bg-ieu-orange text-white transition">
+                            10 Soru
+                        </button>
+                        <button type="button" id="roundLen20Btn" onclick="setQuizRoundLength(20)" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">
+                            20 Soru
+                        </button>
+                    </div>
+
+                    <button type="button" onclick="closeSecretAdminModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TWO SEPARATE BATCH UPLOAD BOXES -->
+            <div class="p-4 sm:p-5 bg-ieu-bg border-b border-ieu-navy/10 space-y-3">
+                <!-- AUTOMATED FOLDER SELECTOR FOR LOCAL /SERVER USE -->
+                <div class="bg-white border-2 border-ieu-navy/20 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-xl bg-ieu-navy text-white flex items-center justify-center text-xl shrink-0 shadow">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs sm:text-sm font-extrabold text-ieu-navy">
+                                📂 'Images' Klasörünü Tek Tıkla Seç (Otomatik Eşleştir)
+                            </h4>
+                            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">
+                                Bilgisayarınızdaki veya sunucunuzdaki <strong class="text-ieu-navy">images</strong> ana klasörünü seçin. Alt klasörlerdeki tüm görseller anında eşleşir!
+                            </p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="document.getElementById('folderSelectInput').click()"
+                        class="w-full sm:w-auto px-5 py-3 rounded-xl bg-ieu-navy hover:bg-ieu-navyLight text-white font-extrabold text-xs shadow transition flex items-center justify-center gap-2 shrink-0">
+                        <i class="fa-solid fa-bolt text-ieu-orange"></i>
+                        <span>Klasörü Seç ve Eşleştir</span>
+                    </button>
+                    <input type="file" id="folderSelectInput" webkitdirectory directory multiple class="hidden" onchange="handleFolderSelectInput(event)">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 1. LEFT UPLOAD BOX (GREEN): STRICTLY REAL PHOTOS -->
+                    <div id="realBatchDropBox" onclick="document.getElementById('realBatchInput').click()"
+                        class="border-2 border-dashed border-emerald-500 bg-emerald-50/50 hover:bg-emerald-50 rounded-2xl p-4 transition cursor-pointer flex flex-col justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <div class="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="text-xs sm:text-sm font-extrabold text-emerald-900">
+                                    1. 📷 GERÇEK FOTOĞRAFLARI YÜKLE (Sadece Orijinal/Gerçek)
+                                </h4>
+                                <p class="text-[11px] text-emerald-800/80 mt-0.5 leading-snug">
+                                    Buraya seçilen veya bırakılan tüm dosyalar kesinlikle <strong>GERÇEK FOTOĞRAF</strong> olarak kaydedilir.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 pt-1" onclick="event.stopPropagation()">
+                            <span class="text-[11px] font-bold text-emerald-800">
+                                Yüklü Gerçek: <strong id="countRealLoaded">0</strong> / 20
+                            </span>
+                            <button type="button" onclick="document.getElementById('realBatchInput').click()"
+                                class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-sm transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-upload"></i>
+                                <span>📷 Gerçek Fotoğrafları Seç</span>
+                            </button>
+                        </div>
+                        <input type="file" id="realBatchInput" accept="image/*" multiple class="hidden" onchange="handleSeparateBatchInput(event, false)">
+                    </div>
+
+                    <!-- 2. RIGHT UPLOAD BOX (ORANGE): STRICTLY AI PHOTOS -->
+                    <div id="aiBatchDropBox" onclick="document.getElementById('aiBatchInput').click()"
+                        class="border-2 border-dashed border-ieu-orange bg-orange-50/50 hover:bg-orange-50 rounded-2xl p-4 transition cursor-pointer flex flex-col justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <div class="w-11 h-11 rounded-xl bg-ieu-orange text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="text-xs sm:text-sm font-extrabold text-ieu-navy">
+                                    2. 🤖 YAPAY ZEKÂ (AI) FOTOĞRAFLARINI YÜKLE (Sadece AI)
+                                </h4>
+                                <p class="text-[11px] text-slate-700 mt-0.5 leading-snug">
+                                    Buraya seçilen veya bırakılan tüm dosyalar kesinlikle <strong>YAPAY ZEKÂ (AI)</strong> olarak kaydedilir.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 pt-1" onclick="event.stopPropagation()">
+                            <span class="text-[11px] font-bold text-ieu-orange">
+                                Yüklü AI: <strong id="countAiLoaded">0</strong> / 20
+                            </span>
+                            <button type="button" onclick="document.getElementById('aiBatchInput').click()"
+                                class="px-3.5 py-2 rounded-xl bg-ieu-orange hover:bg-ieu-orangeHover text-white font-extrabold text-xs shadow-sm transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-upload"></i>
+                                <span>🤖 AI Fotoğraflarını Seç</span>
+                            </button>
+                        </div>
+                        <input type="file" id="aiBatchInput" accept="image/*" multiple class="hidden" onchange="handleSeparateBatchInput(event, true)">
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-white border border-emerald-200 text-xs font-extrabold text-emerald-700">
+                            Tam Eşleşen Çift: <strong id="countCompletePairs">0</strong>
+                        </span>
+                        <span class="text-[11px] text-slate-500 font-medium">
+                            İpucu: Tablodaki her satırdan tek tek de yükleme veya değiştirme yapabilirsiniz.
+                        </span>
+                    </div>
+                    <div id="adminFeedbackBanner" class="hidden px-3.5 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-extrabold">
+                        Hazır
+                    </div>
+                </div>
+            </div>
+
+            <input type="file" id="singleSlotFileInput" accept="image/*" class="hidden" onchange="handleSingleSlotFileChange(event)">
+
+            <div class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-2.5 bg-white">
+                <div class="hidden md:grid md:grid-cols-12 gap-3 px-4 py-2.5 rounded-xl bg-ieu-navy text-white text-xs font-extrabold uppercase tracking-wider">
+                    <div class="col-span-3"># / Destinasyon</div>
+                    <div class="col-span-3 text-emerald-300">📷 GERÇEK FOTOĞRAF</div>
+                    <div class="col-span-3 text-ieu-orange">🤖 YAPAY ZEKÂ (AI)</div>
+                    <div class="col-span-3 text-right">Durum & Yer Değiştir</div>
+                </div>
+                <div id="adminVerificationGrid" class="space-y-2.5"></div>
+            </div>
+
+            <div class="px-5 py-3.5 bg-ieu-bg border-t border-ieu-navy/10 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" onclick="promptResetDatabase()" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 text-xs font-extrabold transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Veritabanını Sıfırla</span>
+                    </button>
+                    <button type="button" onclick="promptResetLeaderboard()" class="px-3.5 py-2 rounded-xl bg-white hover:bg-ieu-navy text-ieu-navy hover:text-white border border-ieu-navy/15 text-xs font-extrabold transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-ranking-star"></i>
+                        <span>Sıralamayı Sıfırla</span>
+                    </button>
+                </div>
+                <button type="button" onclick="closeSecretAdminModal()" class="px-6 py-2.5 rounded-xl bg-ieu-orange hover:bg-ieu-orangeHover text-white font-extrabold text-xs uppercase tracking-wider shadow">
+                    Kaydet ve Kapat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== LEADERBOARD MODAL ==================== -->
+    <div id="leaderboardModal" class="hidden fixed inset-0 z-50 bg-ieu-navy/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg p-6 space-y-5 max-h-[88vh] flex flex-col shadow-2xl border border-ieu-navy/15">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3.5">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-ieu-orange/15 text-ieu-orange flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-extrabold text-ieu-navy">TTI İzmir 2027 Liderlik Tablosu</h3>
+                        <p class="text-[11px] font-medium text-slate-500">En Çok Doğru ve En Hızlı Tamamlama Süresine Göre</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeLeaderboardModal()" class="w-9 h-9 rounded-xl bg-ieu-bg hover:bg-ieu-navy text-ieu-navy hover:text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modalLeaderboardList" class="flex-1 overflow-y-auto space-y-2.5 pr-1"></div>
+            <div class="flex justify-end border-t border-slate-100 pt-3">
+                <button type="button" onclick="closeLeaderboardModal()" class="px-6 py-2.5 rounded-xl bg-ieu-navy text-white font-extrabold text-xs">
+                    Kapat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== LIGHTBOX MODAL ==================== -->
+    <div id="lightboxModal" class="hidden fixed inset-0 z-50 bg-ieu-navy/95 backdrop-blur-md flex flex-col items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="max-w-5xl w-full flex flex-col items-center space-y-3" onclick="event.stopPropagation()">
+            <div class="relative w-full flex items-center justify-center">
+                <img id="lightboxImage" src="" alt="Yakınlaştırılmış Görsel" class="max-h-[82vh] max-w-full rounded-2xl border-2 border-white/20 shadow-2xl object-contain bg-slate-900">
+                <button type="button" onclick="closeLightbox()" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white text-ieu-navy hover:bg-ieu-orange hover:text-white flex items-center justify-center transition shadow-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-300 font-medium">
+                Detayları inceleyin • Kapatmak için boş alana veya <kbd class="px-1.5 py-0.5 bg-white/15 rounded text-white">ESC</kbd> tuşuna basın
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== CONFIRMATION DIALOG ==================== -->
+    <div id="customConfirmDialog" class="hidden fixed inset-0 z-[60] bg-ieu-navy/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl border border-ieu-navy/15">
+            <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 text-2xl flex items-center justify-center mx-auto">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h4 id="confirmDialogTitle" class="text-base font-extrabold text-ieu-navy">Onay Gerekiyor</h4>
+            <p id="confirmDialogMessage" class="text-xs text-slate-600 leading-relaxed"></p>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button type="button" id="confirmDialogApproveBtn" class="py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs transition">
+                    Evet, Onayla
+                </button>
+                <button type="button" onclick="closeCustomConfirm()" class="py-2.5 rounded-xl bg-ieu-bg hover:bg-slate-200 text-ieu-navy font-bold text-xs transition">
+                    Vazgeç
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== APPLICATION SCRIPT ==================== -->
+    <script>
+        (function () {
+            "use strict";
+
+            const PRESET_DESTINATIONS = [
+                { id: "145", name: "Salar de Uyuni", country: "Bolivya", category: "Doğa Harikası", twist: "Gerçek tuz gölü hafif rüzgâr dalgalanmaları ve doğal ufuk çizgisi taşır; AI sürümünde ise gökyüzü ve Samanyolu kusursuz, cam gibi imkânsız bir ayna simetrisiyle yansır." },
+                { id: "146", name: "Saksun Köyü", country: "Faroe Adaları", category: "Kültürel Köy", twist: "Gerçek köyde çim çatılı taş evler sade bir vadiye yaslanır; AI karesinde ise kayalıklardan evlerin hemen arkasına abartılı, masalsı ekstra şelaleler eklenmiştir." },
+                { id: "147", name: "Darvaza Gaz Krateri", country: "Türkmenistan", category: "Jeolojik Oluşum", twist: "Gerçek krater çöl karanlığında doğal alev parıltısı verir; AI görselinde ise gökyüzüne gerçek dışı parlaklıkta, fantastik galaksi ve nebula bulutları eklenmiştir." },
+                { id: "148", name: "Atacama Araba Mezarlığı", country: "Şili", category: "Tarihi Kalıntı", twist: "Gerçek çöl hurdalığında paslı araçlar dağınık ve sert gün ışığı altındadır; AI üretiminde araçların arasından sinematik ve kusursuz ışık hüzmeleri süzülür." },
+                { id: "149", name: "Lençóis Maranhenses", country: "Brezilya", category: "Kumul & Lagün", twist: "Gerçek yağmur suyu lagünlerinin tabanı saf beyaz kumdur; AI karesinde ise tatlı su havuzlarının içinde mercan ve yeşil bitki benzeri imkânsız desenler oluşmuştur." },
+                { id: "150", name: "Santorini (Oia)", country: "Yunanistan", category: "Ada Mimarisi", twist: "Gerçek Ege manzarasında doğal gün batımı tonları görülür; AI versiyonunda deniz yüzeyi yapay mor-pembe neon parıltılar ve kusursuz kubbe ışıklarıyla boyanmıştır." },
+                { id: "151", name: "Waitomo Ateşböceği Mağarası", country: "Yeni Zelanda", category: "Mağara Ekosistemi", twist: "Gerçek mağara tavanında ateşböcekleri düzensiz kümeler oluşturur; AI karesinde ise buzul dumanı arasında aşırı simetrik ve kristalize biyo-ışık sarkıtları yer alır." },
+                { id: "152", name: "Devler Kaldırımı", country: "Kuzey İrlanda", category: "Volkanik Kıyı", twist: "Gerçek bazalt sütunlar deniz dalgalarıyla aşınmıştır; AI görselinde altıgen taş sütunların tam ortasından denize dökülen imkânsız minyatür şelaleler eklenmiştir." },
+                { id: "153", name: "Torres del Paine", country: "Şili", category: "Dağ & Göl", twist: "Gerçek Patagonya zirveleri sert rüzgârlı doğal ışık taşır; AI üretiminde dağ gölünün üzerinde alev kırmızısı gökyüzü ve mistik su buharı abartılmıştır." },
+                { id: "154", name: "Flamingo Plajı", country: "Aruba", category: "Tropikal Kıyı", twist: "Gerçek plajda flamingolar doğal hareket halindedir; AI karesinde ise kuşlar turkuaz suda kusursuz simetriyle dizilmiş ve aşırı doygun neon pembe tonlara bürünmüştür." },
+                { id: "155", name: "Ölü Deniz (Lut Gölü)", country: "Ürdün / İsrail", category: "Tuz Gölü", twist: "Gerçek kıyıda düzensiz tuz kristalleri bulunur; AI görselinde tuz birikintileri suda insan elinden çıkmış gibi kusursuz dairesel labirentler ve sarmallar oluşturmuştur." },
+                { id: "156", name: "Ölüm Vadisi (Death Valley)", country: "ABD", category: "Çöl & Kanyon", twist: "Gerçek çöl tepeleri doğal toprak geçişlerine sahiptir; AI karesinde dağ katmanları gökkuşağı gibi yapay renk şeritlerine ve aşırı pürüzsüz kum dalgalarına dönüştürülmüştür." },
+                { id: "157", name: "Gize Piramitleri", country: "Mısır", category: "Antik Harika", twist: "Gerçek taş bloklar binlerce yıllık aşınma izleri taşır; AI üretiminde piramit yüzeyleri kusursuz pürüzsüzlükte ve yapay altın saat güneş patlamasıyla aydınlatılmıştır." },
+                { id: "158", name: "Maldivler Su Bungalovları", country: "Maldivler", category: "Ada Resortu", twist: "Gerçek tatil köylerinde ahşap iskeleler tek katlıdır; AI görselinde ise birbirinin altından geçen labirent köprüler ve 2-3 katlı imkânsız su üstü villaları yer alır." },
+                { id: "159", name: "Marina Bay Sands", country: "Singapur", category: "Modern Mimari", twist: "Gerçek Marina Bay Sands yapısı 3 kuleden oluşur; AI görselinde bina gizlice 4 kuleli ve imkânsız uzunlukta bir gökyüzü havuzuyla inşa edilmiştir." },
+                { id: "160", name: "Las Vegas Strip", country: "ABD", category: "Şehir & Tema", twist: "Gerçek Las Vegas'ta Eyfel Kulesi kopyası caddenin kenarındadır; AI karesinde kule doğrudan Bellagio fıskiye havuzunun tam ortasına yerleştirilmiştir." },
+                { id: "161", name: "Uluru (Ayers Rock)", country: "Avustralya", category: "Monolit Kaya", twist: "Gerçek Uluru çöl ortasında kurak kızıl bir kumtaşıdır; AI görselinde kayanın yarıklarından gür tropikal şelaleler ve yeşil asma bahçeler fışkırmaktadır." },
+                { id: "162", name: "Antarktika Buz Duvarı", country: "Antarktika", category: "Kutup Buzulu", twist: "Gerçek buzul duvarları düzensiz kırılmalar gösterir; AI karesinde dikey buz kayalıklarının içine oyulmuş kusursuz dairesel ve karesel tünel kapıları yer alır." },
+                { id: "163", name: "Sokotra Ejder Kanı Ağaçları", country: "Yemen", category: "Endemik Flora", twist: "Gerçek ejder kanı ağaçlarının gövdeleri düz ve kalındır; AI görselinde ağaç gövdeleri DNA sarmalı veya halat gibi birbirine bükülerek yükselmektedir." },
+                { id: "164", name: "Taç Mahal", country: "Hindistan", category: "Anıt Mimari", twist: "Gerçek Taç Mahal platformunun köşelerinde 4 minare bulunur; AI görselinde mermer platformun üzerinde mimariyle bütünleşmiş 5 adet minare yer alır." }
+            ];
+
+            const DB_NAME = "IEU_TTI2027_V8_SEPARATE";
+            const DB_VERSION = 1;
+            const STORE_PAIRS = "destinationPairs";
+            const LEADERBOARD_KEY = "IEU_TTI2027_LEADERBOARD_V8";
+            const SETTINGS_KEY = "IEU_TTI2027_SETTINGS_V8";
+
+            let dbInstance = null;
+            let loadedPairsMap = {};
+            let quizSettings = { roundLength: 10, findAiMode: true };
+            let gameState = {
+                playerName: "Misafir Gezgin",
+                deck: [],
+                currentIndex: 0,
+                correctCount: 0,
+                answeredCurrent: false,
+                currentOptions: [],
+                startTimeMs: 0,
+                elapsedSeconds: 0,
+                timerInterval: null
+            };
+
+            let pendingSlotUpload = { id: null, isAI: false };
+            let pendingConfirmCallback = null;
+            let brandTapCount = 0;
+            let brandTapTimer = null;
+            let isAudioMuted = false;
+            let audioCtx = null;
+
+            function playTone(freq, type, duration, delay) {
+                if (isAudioMuted) return;
+                try {
+                    if (!audioCtx) {
+                        const AC = window.AudioContext || window.webkitAudioContext;
+                        if (AC) audioCtx = new AC();
+                    }
+                    if (!audioCtx) return;
+                    if (audioCtx.state === "suspended") audioCtx.resume();
+
+                    const startAt = audioCtx.currentTime + (delay || 0);
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type || "sine";
+                    osc.frequency.setValueAtTime(freq, startAt);
+
+                    gain.gain.setValueAtTime(0.001, startAt);
+                    gain.gain.exponentialRampToValueAtTime(0.14, startAt + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(startAt);
+                    osc.stop(startAt + duration + 0.02);
+                } catch (e) {}
+            }
+
+            function playSoundEffect(kind) {
+                if (kind === "correct") {
+                    playTone(523.25, "triangle", 0.14, 0);
+                    playTone(659.25, "triangle", 0.14, 0.09);
+                    playTone(783.99, "triangle", 0.24, 0.18);
+                } else if (kind === "wrong") {
+                    playTone(310, "sawtooth", 0.18, 0);
+                    playTone(235, "sawtooth", 0.28, 0.14);
+                } else if (kind === "finish") {
+                    playTone(523.25, "sine", 0.14, 0);
+                    playTone(659.25, "sine", 0.14, 0.1);
+                    playTone(783.99, "sine", 0.14, 0.2);
+                    playTone(1046.5, "sine", 0.35, 0.3);
+                } else if (kind === "click") {
+                    playTone(440, "sine", 0.06, 0);
+                }
+            }
+
+            function toggleAudioMute() {
+                isAudioMuted = !isAudioMuted;
+                const icon = document.getElementById("audioStatusIcon");
+                if (icon) {
+                    icon.className = isAudioMuted ? "fa-solid fa-volume-xmark text-sm text-rose-500" : "fa-solid fa-volume-high text-sm";
+                }
+            }
+
+            function createFallbackSvgDataUrl(dest, isAI) {
+                const bgStart = isAI ? "#3B132A" : "#091E3A";
+                const bgEnd = isAI ? "#FF6A00" : "#1B4965";
+                const badgeText = isAI ? "ÖRNEK AI KARTI" : "ÖRNEK GERÇEK KARTI";
+                const subText = isAI ? "Organizatör Panelinden (Ctrl+Shift+U) AI fotoğrafı yükleyin" : "Organizatör Panelinden (Ctrl+Shift+U) Gerçek fotoğraf yükleyin";
+
+                const svg = [
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">',
+                    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">',
+                    '<stop offset="0%" stop-color="' + bgStart + '"/>',
+                    '<stop offset="100%" stop-color="' + bgEnd + '"/>',
+                    '</linearGradient></defs>',
+                    '<rect width="800" height="600" fill="url(#g)"/>',
+                    '<circle cx="640" cy="140" r="110" fill="#FFFFFF" fill-opacity="0.08"/>',
+                    '<circle cx="170" cy="470" r="150" fill="#FFFFFF" fill-opacity="0.06"/>',
+                    '<rect x="60" y="60" width="230" height="38" rx="19" fill="#FFFFFF" fill-opacity="0.16"/>',
+                    '<text x="175" y="84" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">' + badgeText + '</text>',
+                    '<text x="400" y="285" font-family="Arial, sans-serif" font-size="38" font-weight="bold" fill="#FFFFFF" text-anchor="middle">#' + dest.id + ' • ' + escapeXml(dest.name) + '</text>',
+                    '<text x="400" y="330" font-family="Arial, sans-serif" font-size="22" fill="#E2E8F0" text-anchor="middle">' + escapeXml(dest.country) + '</text>',
+                    '<text x="400" y="525" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1" text-anchor="middle">' + escapeXml(subText) + '</text>',
+                    '</svg>'
+                ].join('');
+                return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+            }
+
+            function escapeXml(str) {
+                return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            }
+
+            function openDatabase() {
+                return new Promise(function (resolve, reject) {
+                    if (dbInstance) { resolve(dbInstance); return; }
+                    try {
+                        const req = indexedDB.open(DB_NAME, DB_VERSION);
+                        req.onupgradeneeded = function (e) {
+                            const db = e.target.result;
+                            if (!db.objectStoreNames.contains(STORE_PAIRS)) {
+                                db.createObjectStore(STORE_PAIRS, { keyPath: 'id' });
+                            }
+                        };
+                        req.onsuccess = function (e) {
+                            dbInstance = e.target.result;
+                            resolve(dbInstance);
+                        };
+                        req.onerror = function (e) { reject(e.target.error); };
+                    } catch (err) { reject(err); }
+                });
+            }
+
+            async function loadAllPairsFromDb() {
+                try {
+                    const saved = localStorage.getItem(SETTINGS_KEY);
+                    if (saved) {
+                        const p = JSON.parse(saved);
+                        if (p && typeof p === 'object') {
+                            quizSettings.roundLength = p.roundLength === 20 ? 20 : 10;
+                            quizSettings.findAiMode = p.findAiMode !== false;
+                        }
+                    }
+                } catch (e) {}
+
+                loadedPairsMap = {};
+                PRESET_DESTINATIONS.forEach(function (d) {
+                    loadedPairsMap[d.id] = {
+                        id: d.id, name: d.name, country: d.country, category: d.category, twist: d.twist,
+                        realImg: null, aiImg: null, realName: '', aiName: ''
+                    };
+                });
+
+                try {
+                    const db = await openDatabase();
+                    await new Promise(function (resolve) {
+                        const tx = db.transaction(STORE_PAIRS, 'readonly');
+                        const req = tx.objectStore(STORE_PAIRS).getAll();
+                        req.onsuccess = function () {
+                            const records = req.result || [];
+                            records.forEach(function (rec) {
+                                if (rec && rec.id && loadedPairsMap[rec.id]) {
+                                    if (rec.realImg) loadedPairsMap[rec.id].realImg = rec.realImg;
+                                    if (rec.aiImg) loadedPairsMap[rec.id].aiImg = rec.aiImg;
+                                    if (rec.realName) loadedPairsMap[rec.id].realName = rec.realName;
+                                    if (rec.aiName) loadedPairsMap[rec.id].aiName = rec.aiName;
+                                }
+                            });
+                            resolve();
+                        };
+                        req.onerror = function () { resolve(); };
+                    });
+                } catch (err) {}
+
+                // AUTO-FALLBACK: Check folder structure for both URL server mode and direct file mode
+                await autoLoadFromFolderStructure();
+
+                syncAdminSettingsButtons();
+            }
+
+            async function autoLoadFromFolderStructure() {
+                const promises = PRESET_DESTINATIONS.map(async function (d) {
+                    const rec = loadedPairsMap[d.id];
+                    
+                    // Try to fetch real photo if missing from DB or if running on a web server URL
+                    if (!rec.realImg) {
+                        const paths = [
+                            'Images/' + d.id + '/' + d.id + '.jpg',
+                            'images/' + d.id + '/' + d.id + '.jpg',
+                            'Images/' + d.id + '.jpg',
+                            'images/' + d.id + '.jpg'
+                        ];
+                        for (let p = 0; p < paths.length; p++) {
+                            const dataUrl = await fetchImageAsDataUrl(paths[p]);
+                            if (dataUrl) {
+                                rec.realImg = dataUrl;
+                                rec.realName = d.id + '.jpg (URL)';
+                                break;
+                            }
+                        }
+                    }
+
+                    // Try to fetch AI photo if missing from DB or if running on a web server URL
+                    if (!rec.aiImg) {
+                        const paths = [
+                            'Images/' + d.id + '/' + d.id + '_ai.jpg',
+                            'images/' + d.id + '/' + d.id + '_ai.jpg',
+                            'Images/' + d.id + '_ai.jpg',
+                            'images/' + d.id + '_ai.jpg'
+                        ];
+                        for (let p = 0; p < paths.length; p++) {
+                            const dataUrl = await fetchImageAsDataUrl(paths[p]);
+                            if (dataUrl) {
+                                rec.aiImg = dataUrl;
+                                rec.aiName = d.id + '_ai.jpg (URL)';
+                                break;
+                            }
+                        }
+                    }
+
+                    if (rec.realImg && rec.aiImg) {
+                        await savePairRecordToDb(rec);
+                    }
+                });
+                await Promise.all(promises);
+            }
+
+            function fetchImageAsDataUrl(url) {
+                return new Promise(function (resolve) {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = function () {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        try {
+                            resolve(canvas.toDataURL('image/jpeg', 0.85));
+                        } catch (e) {
+                            resolve(null);
+                        }
+                    };
+                    img.onerror = function () { resolve(null); };
+                    img.src = url;
+                });
+            }
+
+            function savePairRecordToDb(record) {
+                return new Promise(async function (resolve, reject) {
+                    try {
+                        const db = await openDatabase();
+                        const tx = db.transaction(STORE_PAIRS, 'readwrite');
+                        const store = tx.objectStore(STORE_PAIRS);
+                        const req = store.put({
+                            id: record.id,
+                            realImg: record.realImg,
+                            aiImg: record.aiImg,
+                            realName: record.realName,
+                            aiName: record.aiName
+                        });
+                        req.onsuccess = function () { resolve(); };
+                        req.onerror = function (e) { reject(e.target.error); };
+                    } catch (err) { reject(err); }
+                });
+            }
+
+            async function clearAllPairsInDb() {
+                try {
+                    const db = await openDatabase();
+                    await new Promise(function (resolve, reject) {
+                        const tx = db.transaction(STORE_PAIRS, 'readwrite');
+                        const req = tx.objectStore(STORE_PAIRS).clear();
+                        req.onsuccess = function () { resolve(); };
+                        req.onerror = function () { reject(req.error); };
+                    });
+                } catch (err) {}
+                await loadAllPairsFromDb();
+                updateDeckReadyStatus();
+                renderAdminVerificationGrid();
+            }
+
+            function compressImageFile(file) {
+                return new Promise(function (resolve, reject) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = new Image();
+                        img.onload = function () {
+                            const maxDim = 1280;
+                            let w = img.width, h = img.height;
+                            if (w > maxDim || h > maxDim) {
+                                if (w >= h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+                                else { w = Math.round((w * maxDim) / h); h = maxDim; }
+                            }
+                            const canvas = document.createElement('canvas');
+                            canvas.width = w; canvas.height = h;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, w, h);
+                            resolve(canvas.toDataURL('image/jpeg', 0.84));
+                        };
+                        img.onerror = function () { resolve(e.target.result); };
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = function () { reject(reader.error); };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function resolveDestinationIdFromFile(file, fallbackIndex) {
+                const rawName = (file.name || '').toLowerCase();
+                const idMatch = rawName.match(/(14[5-9]|15[0-9]|16[0-4])/);
+                if (idMatch) return idMatch[1];
+                const baseOnly = rawName.replace(/\.[^/.]+$/, '');
+                const numMatch = baseOnly.match(/\b([1-9]|1[0-9]|20)\b/);
+                if (numMatch) return String(144 + parseInt(numMatch[1], 10));
+                for (let i = 0; i < PRESET_DESTINATIONS.length; i++) {
+                    const d = PRESET_DESTINATIONS[i];
+                    if (rawName.includes(d.name.toLowerCase().split(' ')[0])) return d.id;
+                }
+                return PRESET_DESTINATIONS[fallbackIndex % PRESET_DESTINATIONS.length].id;
+            }
+
+            async function handleSeparateBatchInput(event, isAiBox) {
+                const files = Array.from(event.target.files || []).filter(function (f) {
+                    return f.type.startsWith('image/') || /\.(jpg|jpeg|png|webp)$/i.test(f.name);
+                });
+                event.target.value = '';
+                if (files.length === 0) return;
+
+                files.sort(function (a, b) { return a.name.localeCompare(b.name, undefined, { numeric: true }); });
+                showAdminFeedback((isAiBox ? '🤖 AI' : '📷 Gerçek') + ' fotoğraflar işleniyor (' + files.length + ' dosya)...');
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const targetId = resolveDestinationIdFromFile(file, i);
+                    const compressed = await compressImageFile(file);
+                    const rec = loadedPairsMap[targetId];
+                    if (rec) {
+                        if (isAiBox) { rec.aiImg = compressed; rec.aiName = file.name; }
+                        else { rec.realImg = compressed; rec.realName = file.name; }
+                        await savePairRecordToDb(rec);
+                    }
+                }
+
+                updateDeckReadyStatus();
+                renderAdminVerificationGrid();
+                showAdminFeedback('✅ ' + files.length + ' adet ' + (isAiBox ? 'Yapay Zekâ (AI)' : 'Gerçek') + ' fotoğraf kaydedildi!');
+            }
+
+            async function handleFolderSelectInput(event) {
+                const files = Array.from(event.target.files || []).filter(function (f) {
+                    return f.type.startsWith('image/') || /\.(jpg|jpeg|png|webp)$/i.test(f.name);
+                });
+                event.target.value = '';
+                if (files.length === 0) return;
+
+                showAdminFeedback('📂 Klasör taranıyor (' + files.length + ' dosya)...');
+                let countProcessed = 0;
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const relPath = (file.webkitRelativePath || file.name || '').toLowerCase();
+                    const targetId = resolveDestinationIdFromFile(file, i);
+                    const rec = loadedPairsMap[targetId];
+
+                    if (rec) {
+                        const compressed = await compressImageFile(file);
+                        const isAiFile = relPath.includes('_ai') || relPath.includes('-ai') || file.name.toLowerCase().includes('_ai');
+                        if (isAiFile) {
+                            rec.aiImg = compressed;
+                            rec.aiName = file.name;
+                        } else {
+                            rec.realImg = compressed;
+                            rec.realName = file.name;
+                        }
+                        await savePairRecordToDb(rec);
+                        countProcessed++;
+                    }
+                }
+
+                updateDeckReadyStatus();
+                renderAdminVerificationGrid();
+                showAdminFeedback('✨ Klasör taraması tamamlandı! (' + countProcessed + ' dosya başarıyla eşleşti)');
+            }
+
+            function triggerSingleSlotUpload(id, isAI) {
+                pendingSlotUpload = { id: id, isAI: isAI };
+                const input = document.getElementById('singleSlotFileInput');
+                if (input) { input.value = ''; input.click(); }
+            }
+
+            async function handleSingleSlotFileChange(event) {
+                const file = (event.target.files || [])[0];
+                event.target.value = '';
+                if (!file || !pendingSlotUpload.id) return;
+
+                const rec = loadedPairsMap[pendingSlotUpload.id];
+                if (!rec) return;
+
+                const compressed = await compressImageFile(file);
+                if (pendingSlotUpload.isAI) { rec.aiImg = compressed; rec.aiName = file.name; }
+                else { rec.realImg = compressed; rec.realName = file.name; }
+
+                await savePairRecordToDb(rec);
+                updateDeckReadyStatus();
+                renderAdminVerificationGrid();
+                showAdminFeedback('✅ #' + rec.id + ' güncellendi!');
+            }
+
+            async function swapPairColumns(id) {
+                const rec = loadedPairsMap[id];
+                if (!rec) return;
+                const tempImg = rec.realImg, tempName = rec.realName;
+                rec.realImg = rec.aiImg; rec.realName = rec.aiName;
+                rec.aiImg = tempImg; rec.aiName = tempName;
+                await savePairRecordToDb(rec);
+                updateDeckReadyStatus();
+                renderAdminVerificationGrid();
+                showAdminFeedback('⇄ #' + rec.id + ' yer değiştirildi.');
+            }
+
+            function setupSeparateDropZones() {
+                const realBox = document.getElementById('realBatchDropBox');
+                const aiBox = document.getElementById('aiBatchDropBox');
+                function bindZone(el, isAiBox) {
+                    if (!el) return;
+                    el.addEventListener('dragover', function (e) { e.preventDefault(); el.classList.add('ring-4', isAiBox ? 'ring-ieu-orange/40' : 'ring-emerald-400/40'); });
+                    el.addEventListener('dragleave', function () { el.classList.remove('ring-4', 'ring-ieu-orange/40', 'ring-emerald-400/40'); });
+                    el.addEventListener('drop', function (e) {
+                        e.preventDefault();
+                        el.classList.remove('ring-4', 'ring-ieu-orange/40', 'ring-emerald-400/40');
+                        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                            handleSeparateBatchInput({ target: { files: e.dataTransfer.files } }, isAiBox);
+                        }
+                    });
+                }
+                bindZone(realBox, false);
+                bindZone(aiBox, true);
+            }
+
+            function showAdminFeedback(msg) {
+                const banner = document.getElementById('adminFeedbackBanner');
+                if (!banner) return;
+                banner.textContent = msg;
+                banner.classList.remove('hidden');
+            }
+
+            function renderAdminVerificationGrid() {
+                const grid = document.getElementById('adminVerificationGrid');
+                if (!grid) return;
+
+                let realCount = 0, aiCount = 0, completeCount = 0;
+                const rowsHtml = PRESET_DESTINATIONS.map(function (dest) {
+                    const rec = loadedPairsMap[dest.id] || {};
+                    const hasReal = Boolean(rec.realImg), hasAi = Boolean(rec.aiImg);
+                    if (hasReal) realCount++;
+                    if (hasAi) aiCount++;
+                    if (hasReal && hasAi) completeCount++;
+
+                    const realThumb = hasReal ? rec.realImg : createFallbackSvgDataUrl(dest, false);
+                    const aiThumb = hasAi ? rec.aiImg : createFallbackSvgDataUrl(dest, true);
+                    const statusBadge = (hasReal && hasAi)
+                        ? '<span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">✅ Tam Çift</span>'
+                        : '<span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-[11px] font-extrabold">⚠️ Eksik</span>';
+
+                    return [
+                        '<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center p-3 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white transition">',
+                        '  <div class="md:col-span-3">',
+                        '    <div class="flex items-center gap-2">',
+                        '      <span class="px-2 py-0.5 rounded bg-ieu-navy text-white text-xs font-extrabold">#' + dest.id + '</span>',
+                        '      <span class="text-xs font-extrabold text-ieu-navy">' + dest.name + '</span>',
+                        '    </div>',
+                        '    <p class="text-[11px] text-slate-500 mt-0.5">' + dest.country + ' • ' + dest.category + '</p>',
+                        '  </div>',
+                        '  <div class="md:col-span-3 flex items-center gap-2.5">',
+                        '    <img src="' + realThumb + '" alt="Gerçek" class="w-16 h-12 rounded-lg object-cover border ' + (hasReal ? 'border-emerald-500' : 'border-slate-300 opacity-60') + ' shrink-0">',
+                        '    <div class="min-w-0 flex-1">',
+                        '      <p class="text-[10px] font-bold text-slate-500 truncate">' + (rec.realName || 'Yüklenmedi') + '</p>',
+                        '      <button type="button" onclick="triggerSingleSlotUpload(\'' + dest.id + '\', false)" class="mt-1 px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-extrabold transition">📷 Gerçek Yükle</button>',
+                        '    </div>',
+                        '  </div>',
+                        '  <div class="md:col-span-3 flex items-center gap-2.5">',
+                        '    <img src="' + aiThumb + '" alt="AI" class="w-16 h-12 rounded-lg object-cover border ' + (hasAi ? 'border-ieu-orange' : 'border-slate-300 opacity-60') + ' shrink-0">',
+                        '    <div class="min-w-0 flex-1">',
+                        '      <p class="text-[10px] font-bold text-slate-500 truncate">' + (rec.aiName || 'Yüklenmedi') + '</p>',
+                        '      <button type="button" onclick="triggerSingleSlotUpload(\'' + dest.id + '\', true)" class="mt-1 px-2.5 py-1 rounded-lg bg-ieu-orange hover:bg-ieu-orangeHover text-white text-[10px] font-extrabold transition">🤖 AI Yükle</button>',
+                        '    </div>',
+                        '  </div>',
+                        '  <div class="md:col-span-3 flex items-center justify-between md:justify-end gap-2">',
+                        '    ' + statusBadge,
+                        '    <button type="button" onclick="swapPairColumns(\'' + dest.id + '\')" title="Gerçek ve AI yerini değiştir" class="px-2.5 py-1 rounded-lg bg-white hover:bg-ieu-navy text-ieu-navy hover:text-white border border-slate-300 text-[11px] font-extrabold transition">⇄ Yer Değiştir</button>',
+                        '  </div>',
+                        '</div>'
+                    ].join('');
+                });
+
+                grid.innerHTML = rowsHtml.join('');
+                document.getElementById('countRealLoaded').textContent = String(realCount);
+                document.getElementById('countAiLoaded').textContent = String(aiCount);
+                document.getElementById('countCompletePairs').textContent = String(completeCount) + ' / 20';
+            }
+
+            function updateDeckReadyStatus() {
+                let completeCount = 0;
+                PRESET_DESTINATIONS.forEach(function (d) {
+                    const rec = loadedPairsMap[d.id];
+                    if (rec && rec.realImg && rec.aiImg) completeCount++;
+                });
+
+                const dot = document.getElementById('deckReadyDot');
+                const text = document.getElementById('deckReadyText');
+                if (completeCount > 0) {
+                    if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
+                    if (text) text.textContent = completeCount + ' / 20 Destinasyon Çifti Yüklü ve Hazır';
+                } else {
+                    if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-ieu-orange';
+                    if (text) text.textContent = 'Önizleme Modu Aktif (20 Destinasyon)';
+                }
+                const pill = document.getElementById('roundSummaryPill');
+                if (pill) pill.textContent = quizSettings.roundLength + ' Soruluk Tur • Saf Dikkat';
+            }
+
+            function syncAdminSettingsButtons() {
+                const modeAiBtn = document.getElementById('modeFindAiBtn');
+                const modeRealBtn = document.getElementById('modeFindRealBtn');
+                const len10Btn = document.getElementById('roundLen10Btn');
+                const len20Btn = document.getElementById('roundLen20Btn');
+
+                if (modeAiBtn && modeRealBtn) {
+                    modeAiBtn.className = quizSettings.findAiMode ? 'px-2.5 py-1.5 rounded-lg bg-ieu-orange text-white transition' : 'px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+                    modeRealBtn.className = !quizSettings.findAiMode ? 'px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white transition' : 'px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+                }
+                if (len10Btn && len20Btn) {
+                    len10Btn.className = quizSettings.roundLength === 10 ? 'px-2.5 py-1.5 rounded-lg bg-ieu-orange text-white transition' : 'px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+                    len20Btn.className = quizSettings.roundLength === 20 ? 'px-2.5 py-1.5 rounded-lg bg-ieu-orange text-white transition' : 'px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+                }
+            }
+
+            function setQuizRoundLength(len) {
+                quizSettings.roundLength = len === 20 ? 20 : 10;
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(quizSettings));
+                syncAdminSettingsButtons();
+                updateDeckReadyStatus();
+            }
+
+            function setQuizQuestionMode(findAi) {
+                quizSettings.findAiMode = Boolean(findAi);
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(quizSettings));
+                syncAdminSettingsButtons();
+            }
+
+            function openSecretAdminModal() {
+                renderAdminVerificationGrid();
+                syncAdminSettingsButtons();
+                const modal = document.getElementById('secretAdminModal');
+                if (modal) modal.classList.remove('hidden');
+            }
+
+            function closeSecretAdminModal() {
+                const modal = document.getElementById('secretAdminModal');
+                if (modal) modal.classList.add('hidden');
+                updateDeckReadyStatus();
+            }
+
+            function handleBrandTripleTap() {
+                brandTapCount++;
+                clearTimeout(brandTapTimer);
+                if (brandTapCount >= 3) {
+                    brandTapCount = 0;
+                    openSecretAdminModal();
+                    return;
+                }
+                brandTapTimer = setTimeout(function () { brandTapCount = 0; }, 650);
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (e.ctrlKey && e.shiftKey && (e.key === 'U' || e.key === 'u')) {
+                    e.preventDefault();
+                    openSecretAdminModal();
+                } else if (e.key === 'Escape') {
+                    closeLightbox(); closeLeaderboardModal(); closeCustomConfirm();
+                }
+            });
+
+            function shuffleArray(arr) {
+                const copy = arr.slice();
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const tmp = copy[i]; copy[i] = copy[j]; copy[j] = tmp;
+                }
+                return copy;
+            }
+
+            function formatSecondsMmSs(totalSec) {
+                const mins = Math.floor(totalSec / 60);
+                const secs = totalSec % 60;
+                return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+            }
+
+            function startQuizSession() {
+                playSoundEffect('click');
+                const nameInput = document.getElementById('playerNicknameInput');
+                gameState.playerName = (nameInput ? nameInput.value.trim() : '') || 'Misafir Gezgin';
+
+                const allPresets = PRESET_DESTINATIONS.map(function (d) { return loadedPairsMap[d.id]; });
+                const completePairs = allPresets.filter(function (p) { return p && p.realImg && p.aiImg; });
+                const incompletePairs = allPresets.filter(function (p) { return !(p && p.realImg && p.aiImg); });
+
+                gameState.deck = shuffleArray(completePairs).concat(shuffleArray(incompletePairs)).slice(0, quizSettings.roundLength);
+                gameState.currentIndex = 0;
+                gameState.correctCount = 0;
+                gameState.answeredCurrent = false;
+                gameState.startTimeMs = Date.now();
+                gameState.elapsedSeconds = 0;
+
+                if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+                updateStopwatchDisplay();
+                gameState.timerInterval = setInterval(function () {
+                    gameState.elapsedSeconds = Math.floor((Date.now() - gameState.startTimeMs) / 1000);
+                    updateStopwatchDisplay();
+                }, 500);
+
+                showActiveView('quizScreen');
+                renderCurrentQuestion();
+            }
+
+            function updateStopwatchDisplay() {
+                const badge = document.getElementById('hudStopwatchBadge');
+                if (badge) badge.textContent = 'Süre: ' + formatSecondsMmSs(gameState.elapsedSeconds);
+            }
+
+            function renderCurrentQuestion() {
+                const total = gameState.deck.length;
+                const idx = gameState.currentIndex;
+                const item = gameState.deck[idx];
+                if (!item) return;
+
+                gameState.answeredCurrent = false;
+
+                document.getElementById('hudProgressPill').textContent = 'Soru ' + (idx + 1) + ' / ' + total;
+                document.getElementById('hudDestinationTitle').textContent = item.name + ' • ' + item.country;
+                document.getElementById('hudCategoryTag').textContent = item.category;
+                document.getElementById('hudCorrectBadge').textContent = 'Doğru: ' + gameState.correctCount;
+                document.getElementById('hudProgressFill').style.width = Math.round(((idx + 1) / total) * 100) + '%';
+
+                const dotsContainer = document.getElementById('hudStepDots');
+                if (dotsContainer) {
+                    dotsContainer.innerHTML = gameState.deck.map(function (_, i) {
+                        if (i < idx) return '<span class="w-2.5 h-2.5 rounded-full bg-ieu-navy"></span>';
+                        if (i === idx) return '<span class="w-5 h-2.5 rounded-full bg-ieu-orange"></span>';
+                        return '<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>';
+                    }).join('');
+                }
+
+                const promptBanner = document.getElementById('quizPromptBanner');
+                if (promptBanner) {
+                    promptBanner.innerHTML = quizSettings.findAiMode
+                        ? '<span>🤖 HANGİSİ <span class="text-ieu-orange underline decoration-ieu-orange/40 underline-offset-4">YAPAY ZEKÂ (AI)</span> ÜRETİMİ?</span>'
+                        : '<span>📷 HANGİSİ <span class="text-emerald-600 underline decoration-emerald-600/40 underline-offset-4">GERÇEK FOTOĞRAF</span>?</span>';
+                }
+
+                const realCard = { imgSrc: item.realImg || createFallbackSvgDataUrl(item, false), isAI: false };
+                const aiCard = { imgSrc: item.aiImg || createFallbackSvgDataUrl(item, true), isAI: true };
+                gameState.currentOptions = Math.random() < 0.5 ? [realCard, aiCard] : [aiCard, realCard];
+
+                for (let side = 0; side < 2; side++) {
+                    const opt = gameState.currentOptions[side];
+                    const cardEl = document.getElementById('optionCard' + side);
+                    const imgEl = document.getElementById('optionImg' + side);
+                    const badgeEl = document.getElementById('optionBadge' + side);
+                    const btnEl = document.getElementById('optionBtn' + side);
+
+                    imgEl.src = opt.imgSrc;
+                    cardEl.className = 'exhibition-card quiz-option-card quiz-option-card-interactive rounded-3xl overflow-hidden flex flex-col justify-between border-2 border-transparent';
+                    badgeEl.className = 'absolute top-3.5 left-3.5 px-3.5 py-1.5 rounded-xl bg-ieu-navy/90 backdrop-blur-md text-white text-xs font-extrabold tracking-wider uppercase shadow-md';
+                    badgeEl.textContent = side === 0 ? 'A SEÇENEĞİ (SOL)' : 'B SEÇENEĞİ (SAĞ)';
+
+                    btnEl.disabled = false;
+                    btnEl.className = 'w-full py-3.5 px-4 rounded-2xl bg-ieu-bg hover:bg-ieu-orange text-ieu-navy hover:text-white border border-ieu-navy/15 hover:border-ieu-orange font-extrabold text-sm tracking-wide transition flex items-center justify-center gap-2.5';
+                    btnEl.innerHTML = quizSettings.findAiMode
+                        ? '<i class="fa-solid fa-robot"></i><span>BU YAPAY ZEKÂ (AI)</span>'
+                        : '<i class="fa-solid fa-camera"></i><span>BU GERÇEK FOTOĞRAF</span>';
+                }
+
+                document.getElementById('roundRevealPanel').classList.add('hidden');
+            }
+
+            function evaluatePlayerSelection(selectedSide) {
+                if (gameState.answeredCurrent) return;
+                gameState.answeredCurrent = true;
+
+                const chosenOpt = gameState.currentOptions[selectedSide];
+                const isCorrect = quizSettings.findAiMode ? (chosenOpt.isAI === true) : (chosenOpt.isAI === false);
+
+                if (isCorrect) {
+                    gameState.correctCount++;
+                    playSoundEffect('correct');
+                } else {
+                    playSoundEffect('wrong');
+                }
+
+                document.getElementById('hudCorrectBadge').textContent = 'Doğru: ' + gameState.correctCount;
+
+                for (let side = 0; side < 2; side++) {
+                    const opt = gameState.currentOptions[side];
+                    const cardEl = document.getElementById('optionCard' + side);
+                    const badgeEl = document.getElementById('optionBadge' + side);
+                    const btnEl = document.getElementById('optionBtn' + side);
+                    const isChosen = (side === selectedSide);
+
+                    btnEl.disabled = true;
+
+                    if (opt.isAI) {
+                        badgeEl.className = 'absolute top-3.5 left-3.5 px-3.5 py-1.5 rounded-xl bg-ieu-orange text-white text-xs font-extrabold tracking-wider uppercase shadow-md';
+                        badgeEl.textContent = '🤖 YAPAY ZEKÂ (AI)';
+                        btnEl.className = 'w-full py-3.5 px-4 rounded-2xl bg-orange-100 text-ieu-orange border border-ieu-orange/30 font-extrabold text-sm tracking-wide flex items-center justify-center gap-2';
+                        btnEl.innerHTML = '<i class="fa-solid fa-robot"></i><span>YAPAY ZEKÂ (AI) ÜRETİMİ</span>';
+                    } else {
+                        badgeEl.className = 'absolute top-3.5 left-3.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold tracking-wider uppercase shadow-md';
+                        badgeEl.textContent = '📷 GERÇEK FOTOĞRAF';
+                        btnEl.className = 'w-full py-3.5 px-4 rounded-2xl bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold text-sm tracking-wide flex items-center justify-center gap-2';
+                        btnEl.innerHTML = '<i class="fa-solid fa-camera"></i><span>GERÇEK FOTOĞRAF</span>';
+                    }
+
+                    if (isChosen) {
+                        cardEl.className = isCorrect
+                            ? 'exhibition-card quiz-option-card rounded-3xl overflow-hidden flex flex-col justify-between border-4 border-emerald-500 ring-4 ring-emerald-500/20'
+                            : 'exhibition-card quiz-option-card rounded-3xl overflow-hidden flex flex-col justify-between border-4 border-rose-500 ring-4 ring-rose-500/20';
+                    } else {
+                        cardEl.className = 'exhibition-card quiz-option-card rounded-3xl overflow-hidden flex flex-col justify-between border-2 border-slate-200 opacity-95';
+                    }
+                }
+
+                const currentDest = gameState.deck[gameState.currentIndex];
+                const revealPanel = document.getElementById('roundRevealPanel');
+                const verdictBox = document.getElementById('roundVerdictBox');
+                const twistText = document.getElementById('roundTwistExplanation');
+                const nextBtn = document.getElementById('nextQuestionBtn');
+
+                if (isCorrect) {
+                    revealPanel.className = 'exhibition-card rounded-3xl p-5 sm:p-6 border-2 border-emerald-400 space-y-4';
+                    verdictBox.className = 'rounded-2xl p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-center gap-3.5';
+                    verdictBox.innerHTML = [
+                        '<div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-check"></i></div>',
+                        '<div>',
+                        '  <p class="text-sm sm:text-base font-extrabold">TEBRİKLER, DOĞRU TESPİT!</p>',
+                        '  <p class="text-xs font-semibold text-emerald-700">' + (quizSettings.findAiMode ? 'Seçtiğin görsel YAPAY ZEKÂ (AI) üretimiydi — Doğru bildin!' : 'Seçtiğin görsel GERÇEK fotoğraftı — Doğru bildin!') + '</p>',
+                        '</div>'
+                    ].join('');
+                } else {
+                    revealPanel.className = 'exhibition-card rounded-3xl p-5 sm:p-6 border-2 border-rose-400 space-y-4';
+                    verdictBox.className = 'rounded-2xl p-4 bg-rose-50 border border-rose-200 text-rose-900 flex items-center gap-3.5';
+                    const mistakeDetail = quizSettings.findAiMode
+                        ? (chosenOpt.isAI ? '' : 'Seçtiğin görsel GERÇEK fotoğraftı — Yapay Zekâ (AI) olan diğer görseldi.')
+                        : (chosenOpt.isAI ? 'Seçtiğin görsel YAPAY ZEKÂ (AI) üretimiydi — Gerçek fotoğraf diğer görseldi.' : '');
+                    verdictBox.innerHTML = [
+                        '<div class="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-xmark"></i></div>',
+                        '<div>',
+                        '  <p class="text-sm sm:text-base font-extrabold">YANLIŞ SEÇİM!</p>',
+                        '  <p class="text-xs font-semibold text-rose-700">' + mistakeDetail + '</p>',
+                        '</div>'
+                    ].join('');
+                }
+
+                twistText.textContent = currentDest.twist;
+                nextBtn.innerHTML = (gameState.currentIndex >= gameState.deck.length - 1)
+                    ? '<span>Sonuçları ve Ödül Kuponunu Gör 🎉</span>'
+                    : '<span>Sonraki Destinasyon →</span>';
+
+                revealPanel.classList.remove('hidden');
+            }
+
+            function goToNextQuestion() {
+                playSoundEffect('click');
+                if (gameState.currentIndex < gameState.deck.length - 1) {
+                    gameState.currentIndex++;
+                    renderCurrentQuestion();
+                } else {
+                    finishQuizSession();
+                }
+            }
+
+            function finishQuizSession() {
+                if (gameState.timerInterval) {
+                    clearInterval(gameState.timerInterval);
+                    gameState.timerInterval = null;
+                }
+                gameState.elapsedSeconds = Math.max(1, Math.floor((Date.now() - gameState.startTimeMs) / 1000));
+
+                const total = gameState.deck.length;
+                const correct = gameState.correctCount;
+                const ratio = total > 0 ? correct / total : 0;
+                const pct = Math.round(ratio * 100);
+
+                let rankTitle = 'Meraklı Kâşif';
+                let rankDesc = 'İyi bir başlangıç! Küçük mimari ve ışık ipuçlarına biraz daha odaklanarak AI tuzaklarını aşabilirsin.';
+                let rankIconHtml = '<i class="fa-solid fa-compass"></i>';
+
+                if (ratio >= 0.85) {
+                    rankTitle = 'Turizm & AI Ustası';
+                    rankDesc = 'Olağanüstü görsel algı! En zorlu yapay zekâ illüzyonlarını bile gözünden kaçırmadın.';
+                    rankIconHtml = '<i class="fa-solid fa-crown"></i>';
+                } else if (ratio >= 0.6) {
+                    rankTitle = 'Keskin Gözlü Gezgin';
+                    rankDesc = 'Harika iş çıkardın! Dünya destinasyonlarının doğal dokusunu yapay detaylardan başarıyla ayırdın.';
+                    rankIconHtml = '<i class="fa-solid fa-binoculars"></i>';
+                } else if (ratio < 0.4) {
+                    rankTitle = 'AI İllüzyonuna Kapıldı';
+                    rankDesc = 'Yapay zekâ bu turda seni şaşırttı ama harika bir deneyim kazandın. Tekrar deneyip rekorunu geliştirebilirsin!';
+                    rankIconHtml = '<i class="fa-solid fa-wand-magic-sparkles"></i>';
+                }
+
+                document.getElementById('resultRankIcon').innerHTML = rankIconHtml;
+                document.getElementById('resultRankTitle').textContent = rankTitle;
+                document.getElementById('resultRankDesc').textContent = rankDesc;
+                document.getElementById('resultCorrectText').textContent = correct + ' / ' + total + ' Doğru';
+                document.getElementById('resultDurationText').textContent = formatSecondsMmSs(gameState.elapsedSeconds);
+                document.getElementById('resultAccuracyText').textContent = '%' + pct;
+
+                saveLeaderboardEntry({
+                    name: gameState.playerName,
+                    correct: correct,
+                    total: total,
+                    duration: gameState.elapsedSeconds,
+                    rank: rankTitle,
+                    timestamp: Date.now()
+                });
+
+                renderLeaderboardLists();
+                showActiveView('resultsScreen');
+                playSoundEffect('finish');
+
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 }, colors: ['#091E3A', '#FF6A00', '#10B981'] });
+                }
+            }
+
+            function getLeaderboardEntries() {
+                try {
+                    const raw = localStorage.getItem(LEADERBOARD_KEY);
+                    const arr = raw ? JSON.parse(raw) : [];
+                    if (!Array.isArray(arr)) return [];
+                    return arr.sort(function (a, b) {
+                        const aR = a.total > 0 ? a.correct / a.total : 0;
+                        const bR = b.total > 0 ? b.correct / b.total : 0;
+                        if (bR !== aR) return bR - aR;
+                        if (b.correct !== a.correct) return b.correct - a.correct;
+                        return a.duration - b.duration;
+                    });
+                } catch (e) { return []; }
+            }
+
+            function saveLeaderboardEntry(entry) {
+                const list = getLeaderboardEntries();
+                list.push(entry);
+                list.sort(function (a, b) {
+                    const aR = a.total > 0 ? a.correct / a.total : 0;
+                    const bR = b.total > 0 ? b.correct / b.total : 0;
+                    if (bR !== aR) return bR - aR;
+                    if (b.correct !== a.correct) return b.correct - a.correct;
+                    return a.duration - b.duration;
+                });
+                localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(list.slice(0, 50)));
+            }
+
+            function renderLeaderboardLists() {
+                const entries = getLeaderboardEntries();
+                const homeEl = document.getElementById('homeLeaderboardList');
+                const modalEl = document.getElementById('modalLeaderboardList');
+
+                if (entries.length === 0) {
+                    const empty = [
+                        '<div class="text-center py-8 px-4 rounded-2xl bg-ieu-bg/70 border border-dashed border-ieu-navy/15 space-y-1.5">',
+                        '  <i class="fa-solid fa-medal text-2xl text-ieu-orange"></i>',
+                        '  <p class="text-xs font-extrabold text-ieu-navy">Henüz kayıtlı skor yok</p>',
+                        '  <p class="text-[11px] text-slate-500">İlk oyunu tamamla ve TTI İzmir 2027 liderlik koltuğuna otur!</p>',
+                        '</div>'
+                    ].join('');
+                    if (homeEl) homeEl.innerHTML = empty;
+                    if (modalEl) modalEl.innerHTML = empty;
+                    return;
+                }
+
+                function buildRows(sliceList) {
+                    return sliceList.map(function (item, i) {
+                        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '#' + (i + 1);
+                        return [
+                            '<div class="flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-2xl bg-ieu-bg border border-ieu-navy/10">',
+                            '  <div class="flex items-center gap-3 min-w-0">',
+                            '    <span class="w-7 text-center text-sm font-extrabold text-ieu-navy shrink-0">' + medal + '</span>',
+                            '    <div class="min-w-0">',
+                            '      <p class="text-xs sm:text-sm font-extrabold text-ieu-navy truncate">' + escapeXml(item.name) + '</p>',
+                            '      <p class="text-[10px] font-semibold text-slate-500 truncate">' + escapeXml(item.rank) + '</p>',
+                            '    </div>',
+                            '  </div>',
+                            '  <div class="text-right shrink-0">',
+                            '    <p class="text-xs sm:text-sm font-extrabold text-ieu-orange">' + item.correct + ' / ' + item.total + ' Doğru</p>',
+                            '    <p class="text-[10px] font-mono font-bold text-slate-500">' + formatSecondsMmSs(item.duration) + '</p>',
+                            '  </div>',
+                            '</div>'
+                        ].join('');
+                    }).join('');
+                }
+
+                if (homeEl) homeEl.innerHTML = buildRows(entries.slice(0, 5));
+                if (modalEl) modalEl.innerHTML = buildRows(entries);
+            }
+
+            function showActiveView(screenId) {
+                ['welcomeScreen', 'quizScreen', 'resultsScreen'].forEach(function (id) {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        if (id === screenId) el.classList.remove('hidden');
+                        else el.classList.add('hidden');
+                    }
+                });
+            }
+
+            function returnToWelcome() {
+                if (gameState.timerInterval) { clearInterval(gameState.timerInterval); gameState.timerInterval = null; }
+                renderLeaderboardLists();
+                showActiveView('welcomeScreen');
+            }
+
+            function openLeaderboardModal() {
+                renderLeaderboardLists();
+                const modal = document.getElementById('leaderboardModal');
+                if (modal) modal.classList.remove('hidden');
+            }
+
+            function closeLeaderboardModal() {
+                const modal = document.getElementById('leaderboardModal');
+                if (modal) modal.classList.add('hidden');
+            }
+
+            function openLightbox(imgElementId) {
+                const srcImg = document.getElementById(imgElementId);
+                const targetImg = document.getElementById('lightboxImage');
+                const modal = document.getElementById('lightboxModal');
+                if (srcImg && targetImg && modal) {
+                    targetImg.src = srcImg.src;
+                    modal.classList.remove('hidden');
+                }
+            }
+
+            function closeLightbox() {
+                const modal = document.getElementById('lightboxModal');
+                if (modal) modal.classList.add('hidden');
+            }
+
+            function openCustomConfirm(title, message, onApprove) {
+                document.getElementById('confirmDialogTitle').textContent = title;
+                document.getElementById('confirmDialogMessage').textContent = message;
+                pendingConfirmCallback = onApprove;
+                document.getElementById('customConfirmDialog').classList.remove('hidden');
+            }
+
+            function closeCustomConfirm() {
+                pendingConfirmCallback = null;
+                document.getElementById('customConfirmDialog').classList.add('hidden');
+            }
+
+            function promptResetDatabase() {
+                openCustomConfirm('Görsel Veritabanını Sıfırla', 'Tarayıcı hafızasına (IndexedDB) yüklenmiş tüm Gerçek ve AI fotoğraflar kalıcı olarak silinecek. Emin misiniz?', async function () {
+                    await clearAllPairsInDb();
+                    showAdminFeedback('🗑️ Tüm görseller veritabanından temizlendi.');
+                });
+            }
+
+            function promptResetLeaderboard() {
+                openCustomConfirm('Liderlik Tablosunu Sıfırla', 'Kayıtlı tüm yarışmacı skorları kalıcı olarak silinecek. Emin misiniz?', function () {
+                    localStorage.removeItem(LEADERBOARD_KEY);
+                    renderLeaderboardLists();
+                    showAdminFeedback('🗑️ Liderlik tablosu sıfırlandı.');
+                });
+            }
+
+            document.getElementById('confirmDialogApproveBtn').addEventListener('click', function () {
+                const cb = pendingConfirmCallback;
+                closeCustomConfirm();
+                if (typeof cb === 'function') cb();
+            });
+
+            Object.assign(window, {
+                handleBrandTripleTap: handleBrandTripleTap,
+                openSecretAdminModal: openSecretAdminModal,
+                closeSecretAdminModal: closeSecretAdminModal,
+                setQuizRoundLength: setQuizRoundLength,
+                setQuizQuestionMode: setQuizQuestionMode,
+                handleSeparateBatchInput: handleSeparateBatchInput,
+                handleFolderSelectInput: handleFolderSelectInput,
+                triggerSingleSlotUpload: triggerSingleSlotUpload,
+                handleSingleSlotFileChange: handleSingleSlotFileChange,
+                swapPairColumns: swapPairColumns,
+                promptResetDatabase: promptResetDatabase,
+                promptResetLeaderboard: promptResetLeaderboard,
+                toggleAudioMute: toggleAudioMute,
+                startQuizSession: startQuizSession,
+                evaluatePlayerSelection: evaluatePlayerSelection,
+                goToNextQuestion: goToNextQuestion,
+                returnToWelcome: returnToWelcome,
+                openLeaderboardModal: openLeaderboardModal,
+                closeLeaderboardModal: closeLeaderboardModal,
+                openLightbox: openLightbox,
+                closeLightbox: closeLightbox,
+                closeCustomConfirm: closeCustomConfirm
+            });
+
+            window.addEventListener('DOMContentLoaded', async function () {
+                setupSeparateDropZones();
+                await loadAllPairsFromDb();
+                updateDeckReadyStatus();
+                renderLeaderboardLists();
+                showActiveView('welcomeScreen');
+            });
+        })();
+    </script>
+</body>
+</html>
